@@ -1,17 +1,18 @@
 import React, { useRef, useEffect } from "react"
 import gsap from "gsap"
 import styled from "styled-components"
-import photo1 from "../assets/image/photo1.jpg"
-import photo2 from "../assets/image/photo2.jpg"
-import photo3 from "../assets/image/photo3.jpg"
-import photo4 from "../assets/image/photo4.jpg"
-import photo5 from "../assets/image/photo5.jpg"
-import photo6 from "../assets/image/photo6.jpg"
-import photo7 from "../assets/image/photo7.jpg"
+import photo1 from "../images/image/photo1.jpg"
+import photo2 from "../images/image/photo2.jpg"
+import photo3 from "../images/image/photo3.jpg"
+import photo4 from "../images/image/photo4.jpg"
+import photo5 from "../images/image/photo5.jpg"
+import photo6 from "../images/image/photo6.jpg"
+import photo7 from "../images/image/photo7.jpg"
 
 const PageWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
   @media (min-width: 576px) {
     flex-direction: row;
   }
@@ -23,6 +24,8 @@ const ContentWrapper = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  width: 50%;
+  opacity: 0;
 
   h1 {
     @media (min-width: 576px) {
@@ -36,25 +39,25 @@ const ContentWrapper = styled.div`
 
 const ImageWrapper = styled.div`
   display: grid;
-  grid-template-columns: 30px 50px 50px 150px;
-  grid-template-rows: 150px 130px 180px;
+  grid-template-columns: 30px minmax(25px, 50px) minmax(25px, 50px) minmax(
+      100px,
+      150px
+    );
+  grid-template-rows: minmax(150px, 170px) minmax(130px, 150px) minmax(
+      180px,
+      200px
+    );
   margin-left: auto;
 
   @media (min-width: 576px) {
     grid-gap: 5px;
     grid-template-columns: 1fr 1fr 60px 60px 60px 130px;
-    grid-template-rows: 40px 60px 50px 50px 100px 180px;
-  }
-
-  @media (min-width: 860px) {
-    grid-gap: 8px;
-    grid-template-columns: 130px 130px 60px 60px 60px 130px;
-    grid-template-rows: 40px 60px 50px 50px 100px 180px;
-  }
-  @media (min-width: 1200px) {
-    grid-gap: 10px;
-    grid-template-columns: 150px 150px 80px 80px 80px 150px;
-    grid-template-rows: 60px 80px 70px 60px 120px 200px;
+    grid-template-rows:
+      minmax(40px, 60px) minmax(60px, 80px) minmax(50px, 70px) minmax(
+        50px,
+        60px
+      )
+      minmax(100px, 120px) minmax(180px, 200px);
   }
 
   img {
@@ -64,6 +67,7 @@ const ImageWrapper = styled.div`
     object-fit: cover;
     z-index: 1;
     border-top-left-radius: 30px;
+    opacity: 0;
   }
 
   img:nth-of-type(1) {
@@ -142,8 +146,14 @@ const IndexPage = () => {
   const image5 = useRef(null)
   const image6 = useRef(null)
   const image7 = useRef(null)
+  const content = useRef(null)
 
   useEffect(() => {
+    gsap.fromTo(
+      [content.current],
+      { opacity: 0, x: 250 },
+      { opacity: 1, delay: 1.2, duration: 1, x: 0, ease: "power1.out" }
+    )
     gsap.fromTo([image1.current], { opacity: 0 }, { opacity: 1, duration: 0.8 })
     gsap.fromTo([image2.current], { opacity: 0 }, { delay: 0.3, opacity: 1 })
     gsap.fromTo([image3.current], { opacity: 0 }, { delay: 0.7, opacity: 1 })
@@ -171,7 +181,7 @@ const IndexPage = () => {
 
   return (
     <PageWrapper>
-      <ContentWrapper>
+      <ContentWrapper ref={content}>
         <div>
           <h1>John Doe</h1>
           <p>Welcome on my photography portfolio.</p>

@@ -18,7 +18,7 @@ const Nav = styled.ul`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: darkcyan;
+  background: #2ea9e0;
   transform: ${({ open }) => (open ? "translateX(0)" : "translateX(-100%)")};
   transition: transform 0.3s ease-in-out;
   z-index: 9;
@@ -119,17 +119,9 @@ const Navigation = () => {
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/articles">Articles</Link>
-          </li>
-          <li>
-            <Link to="/about">About</Link>
-          </li>
+
           <li>
             <Link to="/gallery">Gallery</Link>
-          </li>
-          <li>
-            <Link to="/contact">Contact</Link>
           </li>
         </Nav>
       </NavigationWrapper>
